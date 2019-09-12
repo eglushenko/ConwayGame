@@ -16,27 +16,23 @@ public class FileReaderConfigGame {
             setA(scanner.nextInt());
             setB(scanner.nextInt());
             setC(scanner.nextInt());
+            String [][] tempArray = new String[a][b];
+            int count = 0;
 
-                String [][] tempArray = new String[a][b];
-                int count = 0;
-
-                for (int i = 0;i < tempArray.length ;++i){
-                    for (int j = 0;j < tempArray.length ; ++j){
-                        tempArray[i][j] = scanner.next();
-                        scanner.hasNext();
-                        System.out.print(tempArray[i][j]);
-                    }
+            for (int i = 0;i < tempArray.length ;i++){
+                for (int j = 0;j < tempArray.length ; j++){
+                    tempArray[i][j] = scanner.next();
                 }
-
-                setArr(tempArray);
-            }catch(InputMismatchException | FileNotFoundException e){
-                System.out.println("Ops somtings go wrong -- File not found!");
-                System.out.println(e.getStackTrace());
-                System.exit(1);
-            }finally {
-
+            }setArr(tempArray);
+        }catch(InputMismatchException | FileNotFoundException e){
+            System.out.println("Oops something went wrong -- File not found!");
+            e.printStackTrace();
+            System.exit(1);
+        }catch (NoSuchElementException e){
+            System.out.println("Error read file, no such element");
+            e.printStackTrace();
+            System.exit(1);
         }
-
     }
 
     public int getA() {

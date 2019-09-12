@@ -1,12 +1,12 @@
 9
 9
-10
+100
+X X X X O O X X X
+X X X X X O X X X
 X X X X X X X X X
 X X X X X X X X X
-X X X X X X X X X
-X X X X X X X X X
-X O O O O O O X X
-X X X X X X X X X
-X X X X X X X X X
+X O O O O X O X X
+X X X X O O X X X
+X X X X O X X X X
 X X X X X X X X X
 X X X X X X X X X
