@@ -17,7 +17,7 @@ public class Main {
         int collums = fl.getB();
         int generations = fl.getC();
         String[][] feild = fl.getArr();
-        String[][] fieldCopy = feild;
+        String[][] fieldCopy = copyArrey(feild);
         for (int gen = 1; gen <= generations; gen++) {
             for (int i = 0; i < feild.length; i++) {
                 for (int j = 0; j < feild[i].length; j++) {
@@ -38,15 +38,15 @@ public class Main {
                         for (int k = 0; k < cellArray.size(); k++) {
                             if (cellArray.get(k).equals(LIVE)) {
                                 liveCells++;
-                            }
+                            }if(feild[i][j].equals(DEATH)){
+                                if (liveCells == 3) {
+                                    fieldCopy[i][j] = LIVE;
+                                }
+                            }else {
+                                if (liveCells < 2 || liveCells > 3) {
+                                    fieldCopy[i][j] = DEATH;
+                                }
 
-                        }if(feild[i][j].equals(DEATH)){
-                            if (liveCells == 3) {
-                                fieldCopy[i][j] = LIVE;
-                        }
-                        }else {
-                            if (liveCells < 2 || liveCells > 3) {
-                                fieldCopy[i][j] = DEATH;
                             }
                         }
 
@@ -54,8 +54,8 @@ public class Main {
 
                     }
                 }
-            }
-        }feild = copyArrey(fieldCopy);
+            }feild = copyArrey(fieldCopy);
+        }
         OutphutFileWriter outphutFileWriter =new OutphutFileWriter();
         try {
             outphutFileWriter.write(feild);
