@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
-    private static final String LIVE = "O";
+    private static final String LIVE = "O";//English
     private static final String DEATH = "X";
 
     public static void main(String[] args) {
@@ -33,20 +33,21 @@ public class Main {
                         cellArray.add(field[i + 1][j + 1]);
                         cellArray.add(field[i + 1][j - 1]);
                         //Rules
+                        //TODO Not correct works
                         for (int k = 0; k < cellArray.size(); k++) {
                             if (cellArray.get(k).equals(LIVE)) {
                                 liveCells++;
-                            }if(field[i][j].equals(DEATH)){
+                            }
+                            if(field[i][j].equals(DEATH)){
                                 if (liveCells == 3) {
                                     fieldCopy[i][j] = LIVE;
                                 }
-                            }else {
+                            }else{
                                 if (liveCells < 2 || liveCells > 3) {
                                     fieldCopy[i][j] = DEATH;
                                 }
                             }
                         }
-
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
                         //TODO ArrayIndex Exception need read ...
                     }
