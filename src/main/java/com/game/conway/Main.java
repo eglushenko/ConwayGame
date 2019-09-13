@@ -38,16 +38,19 @@ public class Main {
                             if (cellArray.get(k).equals(LIVE)) {
                                 liveCells++;
                             }
-                            if(field[i][j].equals(DEATH)){
-                                if (liveCells == 3) {
-                                    fieldCopy[i][j] = LIVE;
-                                }
-                            }else{
-                                if (liveCells < 2 || liveCells > 3) {
-                                    fieldCopy[i][j] = DEATH;
-                                }
+                        }
+                        if(field[i][j].equals(DEATH)){
+                            if (liveCells == 3) {
+                                fieldCopy[i][j] = LIVE;
+                            }
+                        }else{
+                            if (liveCells <= 1 || liveCells > 3) {
+                                fieldCopy[i][j] = DEATH;
                             }
                         }
+
+
+
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
                         //TODO ArrayIndex Exception need read ...
                     }
