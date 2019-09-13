@@ -5,18 +5,18 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class FileReaderConfigGame {
-    private int a;
-    private int b;
-    private int c;
+    private int width;
+    private int height;
+    private int generations;
     private String[][] arr;
     public void readConfig(){
         Scanner scanner = null;
         try {
             scanner = new Scanner(new File("input.txt"));
-            setA(scanner.nextInt());
-            setB(scanner.nextInt());
-            setC(scanner.nextInt());
-            String [][] tempArray = new String[a][b];
+            setWidth(scanner.nextInt());
+            setHeight(scanner.nextInt());
+            setGenerations(scanner.nextInt());
+            String [][] tempArray = new String[width][height];
             int count = 0;
 
             for (int i = 0;i < tempArray.length ;i++){
@@ -35,28 +35,28 @@ public class FileReaderConfigGame {
         }
     }
 
-    public int getA() {
-        return a;
+    public int getWidth() {
+        return width;
     }
 
-    public void setA(int a) {
-        this.a = a;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
-    public int getB() {
-        return b;
+    public int getHeight() {
+        return height;
     }
 
-    public void setB(int b) {
-        this.b = b;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
-    public int getC() {
-        return c;
+    public int getGenerations() {
+        return generations;
     }
 
-    public void setC(int c) {
-        this.c = c;
+    public void setGenerations(int generations) {
+        this.generations = generations;
     }
 
     public String[][] getArr() {

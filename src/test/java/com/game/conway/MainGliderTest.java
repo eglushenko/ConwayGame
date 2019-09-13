@@ -1,21 +1,37 @@
 package com.game.conway;
 
-import com.game.conway.fileOperations.FileReaderConfigGame;
-import com.game.conway.fileOperations.OutphutFileWriter;
+import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Main {
-    //Using English letters
+import static org.junit.Assert.*;
+
+public class MainGliderTest {
     private static final String LIVE = "O";
     private static final String DEATH = "X";
 
-    public static void main(String[] args) {
-        FileReaderConfigGame fl = new FileReaderConfigGame();
-        fl.readConfig();
-        int generations = fl.getGenerations();
-        String[][] field = fl.getArr();                                //Get read array
+    @Test
+    public void main() {
+        int generations = 6;
+        String[][] field = {{"X","X","X","X","X","X","X","X","X"},
+                            {"X","X","X","X","X","X","X","X","X"},
+                            {"X","X","X","O","X","X","X","X","X"},
+                            {"X","X","X","X","O","X","X","X","X"},
+                            {"X","X","O","O","O","X","X","X","X"},
+                            {"X","X","X","X","X","X","X","X","X"},
+                            {"X","X","X","X","X","X","X","X","X"},
+                            {"X","X","X","X","X","X","X","X","X"},
+                            {"X","X","X","X","X","X","X","X","X"}};
+        String [][] equalsField = {{"X","X","X","X","X","X","X","X","X"},
+                                   {"X","X","X","X","X","X","X","X","X"},
+                                   {"X","X","X","X","X","X","X","X","X"},
+                                   {"X","X","X","X","X","X","X","X","X"},
+                                   {"X","X","X","X","X","O","X","X","X"},
+                                   {"X","X","X","O","X","O","X","X","X"},
+                                   {"X","X","X","X","O","O","X","X","X"},
+                                   {"X","X","X","X","X","X","X","X","X"},
+                                   {"X","X","X","X","X","X","X","X","X"}};
         for (int gen = 1; gen <= generations; gen++) {
             String[][] fieldCopy = copyArray(field);
             for (int i = 0; i < field.length; i++) {
@@ -23,8 +39,6 @@ public class Main {
                     int liveCells = 0;
                     ArrayList<String> cellArray = new ArrayList<String>();
                     try {
-                        //add to cellArray all cells around our cell
-                        //indexOfBoundException if i = 0 ([i-1] = -1) for example
                         cellArray.add(field[i - 1][j-1]);
                         cellArray.add(field[i - 1][j+1]);
                         cellArray.add(field[i - 1][j]);
@@ -33,14 +47,12 @@ public class Main {
                         cellArray.add(field[i + 1][j]);
                         cellArray.add(field[i + 1][j + 1]);
                         cellArray.add(field[i + 1][j - 1]);
-                        //Rules
-                        //TODO Not correct works
-                        for (int k = 0; k < cellArray.size(); k++) {    //calc all live cells around the cell
+                        for (int k = 0; k < cellArray.size(); k++) {
                             if (cellArray.get(k).equals(LIVE)) {
                                 liveCells++;
                             }
                         }
-                        if(field[i][j].equals(DEATH)){                  //gelneral logic to set cell
+                        if(field[i][j].equals(DEATH)){
                             if (liveCells == 3) {
                                 fieldCopy[i][j] = LIVE;
                             }
@@ -50,27 +62,22 @@ public class Main {
                             }
                         }
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        //TODO ArrayIndex Exception need do ...
                     }
                 }
-            }field = copyArray(fieldCopy);                                  // copy new field
+            }field = copyArray(fieldCopy);
         }
-        OutphutFileWriter outphutFileWriter = new OutphutFileWriter();
-        try {
-            outphutFileWriter.write(field);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("End "+ generations + " generation's");
+        boolean result = false;
+        result = Arrays.deepEquals(field,equalsField);
+        assertTrue(result);
+
     }
     static private String[][] copyArray(String[][] arr) {
         String[][] tempArray = new String[arr.length][arr[0].length];
         for (int i = 0;i < arr.length;i++){
             for (int j = 0;j < arr[i].length;j++){
-                    tempArray[i][j] = arr[i][j];
+                tempArray[i][j] = arr[i][j];
             }
         }
         return tempArray;
     }
-
 }
