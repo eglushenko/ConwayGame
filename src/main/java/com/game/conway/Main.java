@@ -34,7 +34,6 @@ public class Main {
                         cellArray.add(field[i + 1][j + 1]);
                         cellArray.add(field[i + 1][j - 1]);
                         //Rules
-                        //TODO Not correct works
                         for (int k = 0; k < cellArray.size(); k++) {    //calc all live cells around the cell
                             if (cellArray.get(k).equals(LIVE)) {
                                 liveCells++;
@@ -50,7 +49,7 @@ public class Main {
                             }
                         }
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        //TODO ArrayIndex Exception need do ...
+                        //It's but it is fast solutinons. Need to do.
                     }
                 }
             }field = copyArray(fieldCopy);                                  // copy new field
