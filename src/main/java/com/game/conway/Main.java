@@ -21,24 +21,14 @@ public class Main {
             for (int i = 0; i < field.length; i++) {
                 for (int j = 0; j < field[i].length; j++) {
                     int liveCells = 0;
-                    ArrayList<String> cellArray = new ArrayList<String>();
-                    try {
-                        //add to cellArray all cells around our cell
-                        //indexOfBoundException if i = 0 ([i-1] = -1) for example
-                        cellArray.add(field[i - 1][j-1]);
-                        cellArray.add(field[i - 1][j+1]);
-                        cellArray.add(field[i - 1][j]);
-                        cellArray.add(field[i][j - 1]);
-                        cellArray.add(field[i][j + 1]);
-                        cellArray.add(field[i + 1][j]);
-                        cellArray.add(field[i + 1][j + 1]);
-                        cellArray.add(field[i + 1][j - 1]);
+                    ArrayList<String> cellArray;
+                        cellArray = stringArrayListCellAround(i,j,field);
                         //Rules
-                        for (int k = 0; k < cellArray.size(); k++) {    //calc all live cells around the cell
-                            if (cellArray.get(k).equals(LIVE)) {
-                                liveCells++;
-                            }
+                    for (String s : cellArray) {    //calc all live cells around the cell
+                        if (s.equals(LIVE)) {
+                            liveCells++;
                         }
+                    }
                         if(field[i][j].equals(DEATH)){                  //gelneral logic to set cell
                             if (liveCells == 3) {
                                 fieldCopy[i][j] = LIVE;
@@ -48,12 +38,9 @@ public class Main {
                                 fieldCopy[i][j] = DEATH;
                             }
                         }
-                    } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        //It's but it is fast solutinons. Need to do.
                     }
-                }
-            }field = copyArray(fieldCopy);                                  // copy new field
-        }
+                }field = copyArray(fieldCopy);                                  // copy new field
+            }
         OutphutFileWriter outphutFileWriter = new OutphutFileWriter();
         try {
             outphutFileWriter.write(field);
@@ -65,11 +52,37 @@ public class Main {
     static private String[][] copyArray(String[][] arr) {
         String[][] tempArray = new String[arr.length][arr[0].length];
         for (int i = 0;i < arr.length;i++){
-            for (int j = 0;j < arr[i].length;j++){
-                    tempArray[i][j] = arr[i][j];
-            }
+            System.arraycopy(arr[i], 0, tempArray[i], 0, arr[i].length);
         }
         return tempArray;
+    }
+    static private ArrayList<String> stringArrayListCellAround(int i,int j,String[][] field){
+        ArrayList<String> cellArray = new ArrayList<>();
+        try {
+            for (int ii = -1;ii<=1;ii++){
+                for (int jj= -1;jj<=1;jj++){
+                    int x = i+ii;
+                    int y = j + jj;
+                    if(jj == 0 && ii == 0){
+                        continue;
+                    }if(ii == -1 && x <0){
+                        x=8;
+                    }if(jj == -1&& y < 0){
+                        y=8;
+                    }if(ii == 1&& x >8){
+                        x=0;
+                    }if(jj == 1&& y>8){
+                        y=0;
+                    }
+                    cellArray.add(field[x][y]);
+
+                }
+            }
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+
+        return cellArray;
     }
 
 }
