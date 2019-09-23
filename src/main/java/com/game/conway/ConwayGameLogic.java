@@ -15,12 +15,8 @@ class ConwayGameLogic {
                     ArrayList<String> cellArray;
                     cellArray = stringArrayListCellAround(i,j,field);
                     //Rules
-                    for (String s : cellArray) {    //calc all live cells around the cell
-                        if (s.equals(StatusEnum.LIVE.getTypeOfStatus())) {
-                            liveCells++;
-                        }
-                    }
-                    if(field[i][j].equals(StatusEnum.DEATH.getTypeOfStatus())){                  //gelneral logic to set cell
+                    liveCells = calcCellsAround(cellArray,liveCells);
+                    if(field[i][j].equals(StatusEnum.DEATH.getTypeOfStatus())){
                         if (liveCells == 3) {
                             fieldCopy[i][j] = StatusEnum.LIVE.getTypeOfStatus();
                         }
@@ -41,6 +37,7 @@ class ConwayGameLogic {
         }
         return tempArray;
     }
+
     static private ArrayList<String> stringArrayListCellAround(int i,int j,String[][] field){
         ArrayList<String> cellArray = new ArrayList<>();
         try {
@@ -69,5 +66,11 @@ class ConwayGameLogic {
 
         return cellArray;
     }
-
+    static private int calcCellsAround(ArrayList<String> cellArray,int liveCells){
+        for (String s : cellArray) {    //calc all live cells around the cell
+            if (s.equals(StatusEnum.LIVE.getTypeOfStatus())) {
+                liveCells++;
+            }
+        }return liveCells;
+    }
 }
